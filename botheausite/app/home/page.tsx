@@ -20,7 +20,7 @@ const homePage = () => {
       <Link href="/home/profil">
         <h2>Profil</h2>
       </Link>
-    </div>
+    </div> 
   )
 }
 
