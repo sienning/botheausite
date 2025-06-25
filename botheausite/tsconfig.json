@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".",       // Base directory for non-relative module names ( enables absolute imports )
     "plugins": [
       {
         "name": "next"
