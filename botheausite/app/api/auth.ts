@@ -1,6 +1,6 @@
 'use server'
 import { SignInFormSchema, FormState } from '@/app/lib/definitions'
-
+import { matchMDP } from '@/app/lib/db'
 
 export async function signin(state:FormState, formData: FormData) {
     // Validate form fields
@@ -17,5 +17,6 @@ export async function signin(state:FormState, formData: FormData) {
     }
  
     // Call the db to check if the user exists
- 
+    const match = matchMDP(validatedFields.data.name, validatedFields.data.password); 
+    console.log('match', match);  
 }
