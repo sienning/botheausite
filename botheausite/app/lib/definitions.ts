@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { JWTPayload } from 'jose'
  
 export const SignInFormSchema = z.object({
   name: z
@@ -23,3 +24,19 @@ export type FormState =
       message?: string
     }
   | undefined
+
+export interface SessionPayload extends JWTPayload {
+  userName: string
+  userSurname: string
+  email: string
+  role?: string
+}
+
+export interface User {
+  MEMBERS_ID: number
+  // Add other user properties as needed
+  name?: string
+  userSurname?: string
+  email?: string
+  role?: string
+}
