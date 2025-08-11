@@ -1,6 +1,7 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 import { User } from '@/app/lib/definitions'
+import { RendezVous } from '@/app/lib/definitions'  
 
 export function getDB(): Database.Database {
   const dbPath = path.resolve(process.cwd(), 'botheautest');
@@ -53,4 +54,29 @@ export function getUserData(name: string,password: string ) : User | null {
   }
 
   return null;
+}
+
+
+export function getNextRendezVous(): RendezVous | null {
+  const dbPath = path.resolve(process.cwd(), 'botheautest');
+  const db = new Database(dbPath, { readonly: true });
+
+  try {
+    // Recupere le prochain RDV (date >= aujourd'hui) trie par date croissante
+    const nextRdv = db
+      .prepare(`
+        SELECT rdv_id, rdv_date 
+        FROM RDV 
+        WHERE julianday(
+            substr(rdv_date,7,4) || '-' || substr(rdv_date,4,2) || '-' || substr(rdv_date,1,2)
+        ) >= julianday('now','localtime')
+        ORDER BY rdv_date desc	
+        LIMIT 1;
+      `)
+      .get() as RendezVous | undefined;
+
+    return nextRdv || null;
+  } finally {
+    db.close();
+  }
 }

@@ -40,3 +40,8 @@ export interface User {
   email?: string
   role?: string
 }
+
+export interface RendezVous {
+  RDV_ID: number
+  RDV_DATE: string // ou Date selon votre format en base
+}
