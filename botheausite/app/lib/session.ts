@@ -22,7 +22,7 @@ export async function decrypt(session: string | undefined = ''): Promise<Session
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ['HS256'],
     })
-    
+    console.log('Decrypted session payload:', payload)
     // Now payload directly contains your SessionPayload properties
     return payload as SessionPayload
   } catch (error) {
